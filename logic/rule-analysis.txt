@@ -1,0 +1,488 @@
+---------------------------------------------------------------
+		MONOPOLY (r) GAME SIMULATOR
+---------------------------------------------------------------
+
+1. OBJECTIVE
+This simulator is intended to prove the stability of the virtual
+economy in the game Monopoly (r) by Parker Brothers.
+
+2. GOALS
+a. Make a list of the rules of the game.
+b. Organize the rules to be ready for modeling.
+c, Set the model for the rules.
+d. Build the software that simulates the model.
+e. Experiment phase. (to be developed after building).
+
+3. GAME SETTINGS AND INFORMATION
+The game has the following previous settings:
+-1 Board (Static class)
+-2 Dice (Random Number Generator)
+-Player tokens (Player class)
+-32 houses and 12 hotels. (later)
+-Chance cards
+
+Advance to Go (Collect $200)
+Advance to Illinois Ave. - If you pass Go, collect $200
+Advance to St. Charles Place - If you pass Go, collect $200
+Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.
+Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.) 
+Bank pays you dividend of $50 
+Get out of Jail Free - This card may be kept until needed, or traded/sold
+Go Back 3 Spaces
+Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200 
+Make general repairs on all your property - For each house pay $25 - For each hotel $100 
+Pay poor tax of $15
+Take a trip to Reading Railroad - If you pass Go, collect $200
+Take a walk on the Boardwalk - Advance token to Boardwalk 
+You have been elected Chairman of the Board - Pay each player $50
+Your building loan matures - Collect $150
+
+(source http://monopoly.wikia.com/wiki/Chance)
+
+-Community Chest cards
+
+Advance to Go (Collect $200)
+Bank error in your favor - Collect $200
+Doctor's fees - Pay $50
+From sale of stock you get $50
+Get Out of Jail Free - This card may be kept until needed or sold 
+Go to Jail - Go directly to jail - Do not pass Go - Do not collect $200
+Grand Opera Night - Collect $50 from every player for opening night seats
+Holiday Fund matures - Receive $100
+Income tax refund - Collect $20
+It is your birthday - Collect $10 from each player
+Life insurance matures - Collect $100
+Pay hospital fees of $100
+Pay school fees of $150
+Receive $25 consultancy fee
+You are assessed for street repairs - $40 per house - $115 per hotel
+You have won second prize in a beauty contest - Collect $10
+You inherit $100
+
+(source http://monopoly.wikia.com/wiki/Community_Chest)
+
+
+-Title Deeds
+
+** Mediterranean Avenue
+Rent $2.
+     With 1 House	 $10.
+     With 2 Houses	  30.
+     With 3 Houses	  90.
+     With 4 Houses	  160.
+With HOTEL $250
+
+Printed Price: $60
+Mortgage Value $30.
+Houses cost $50. each
+Hotels, $50. plus 4 houses
+
+** Baltic Avenue
+Rent $4.
+     With 1 House	 $20.
+     With 2 Houses	  $60.
+     With 3 Houses	  $180.
+     With 4 Houses	  $320.
+With HOTEL $450
+
+Printed Price: $60
+Mortgage Value $30.
+Houses cost $50. each
+Hotels, $50. plus 4 houses
+
+** Arctic Avenue
+Rent $5.
+     With 1 House	 $30.
+     With 2 Houses	  $80.
+     With 3 Houses	  $240.
+     With 4 Houses	  $360.
+With HOTEL $450
+
+Printed Price: $80
+Mortgage Value $40.
+Houses cost $50. each
+Hotels, $50. plus 4 houses
+
+** Massachusetts Avenue
+Rent $6.
+     With 1 House	 $30.
+     With 2 Houses	  $90.
+     With 3 Houses	  $270.
+     With 4 Houses	  $400.
+With HOTEL $550
+
+Printed Price: $100
+Mortgage Value $50.
+Houses cost $50. each
+Hotels, $50. plus 4 houses
+
+** Oriental Avenue
+Rent $6.
+     With 1 House	 $30.
+     With 2 Houses	  $90.
+     With 3 Houses	  $270.
+     With 4 Houses	  $400.
+With HOTEL $550
+
+Printed Price: $100
+Mortgage Value $50.
+Houses cost $50. each
+Hotels, $50. plus 4 houses
+
+** Vermont Avenue
+Rent $6.
+     With 1 House	 $30.
+     With 2 Houses	  $90.
+     With 3 Houses	  $270.
+     With 4 Houses	  $400.
+With HOTEL $550
+
+Printed Price: $100
+Mortgage Value $50.
+Houses cost $50. each
+Hotels, $50. plus 4 houses
+
+** Connecticut Avenue
+Rent $8.
+     With 1 House	 $40.
+     With 2 Houses	  $100.
+     With 3 Houses	  $300.
+     With 4 Houses	  $450.
+With HOTEL $600
+
+Printed Price: $120
+Mortgage Value $60.
+Houses cost $50. each
+Hotels, $50. plus 4 houses
+
+** Maryland Avenue
+Rent $10.
+     With 1 House	 $50.
+     With 2 Houses	  $150.
+     With 3 Houses	  $450.
+     With 4 Houses	  $625.
+With HOTEL $750
+
+Printed Price: $140
+Mortgage Value $70.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** St. Charles Place (no longer in Atlantic City)
+Rent $10.
+     With 1 House	 $50.
+     With 2 Houses	  $150.
+     With 3 Houses	  $450.
+     With 4 Houses	  $625.
+With HOTEL $750
+
+Printed Price: $140
+Mortgage Value $70.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** States Avenue
+Rent $10.
+     With 1 House	 $50.
+     With 2 Houses	  $150.
+     With 3 Houses	  $450.
+     With 4 Houses	  $625.
+With HOTEL $750
+
+Printed Price: $140
+Mortgage Value $70.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** Virginia Avenue
+Rent $12.
+     With 1 House	 $60.
+     With 2 Houses	  $180.
+     With 3 Houses	  $500.
+     With 4 Houses	  $700.
+With HOTEL $900
+
+Printed Price: $160
+Mortgage Value $80.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** St. James Place
+Rent $14.
+     With 1 House	 $70.
+     With 2 Houses	  $200.
+     With 3 Houses	  $550.
+     With 4 Houses	  $750.
+With HOTEL $950
+
+Printed Price: $180
+Mortgage Value $90.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** Tennessee Avenue
+Rent $14.
+     With 1 House	 $70.
+     With 2 Houses	  $200.
+     With 3 Houses	  $550.
+     With 4 Houses	  $750.
+With HOTEL $950
+
+Printed Price: $180
+Mortgage Value $90.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** New York Avenue
+Rent $16.
+     With 1 House	 $80.
+     With 2 Houses	  $220.
+     With 3 Houses	  $600.
+     With 4 Houses	  $800.
+With HOTEL $1000
+
+Printed Price: $200
+Mortgage Value $100.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** New Jersey Avenue
+Rent $16.
+     With 1 House	 $80.
+     With 2 Houses	  $220.
+     With 3 Houses	  $600.
+     With 4 Houses	  $800.
+With HOTEL $1000
+
+Printed Price: $200
+Mortgage Value $100.
+Houses cost $100. each
+Hotels, $100. plus 4 houses
+
+** Kentucky Avenue
+Rent $18.
+     With 1 House	 $90.
+     With 2 Houses	  $250.
+     With 3 Houses	  $700.
+     With 4 Houses	  $875.
+With HOTEL $1050
+
+Printed Price: $220
+Mortgage Value $110.
+Houses cost $150. each
+Hotels, $150. plus 4 houses
+
+** Indiana Avenue
+Rent $18.
+     With 1 House	 $90.
+     With 2 Houses	  $250.
+     With 3 Houses	  $700.
+     With 4 Houses	  $875.
+With HOTEL $1050
+
+Printed Price: $220
+Mortgage Value $110.
+Houses cost $150. each
+Hotels, $150. plus 4 houses
+
+** Illinois Avenue
+Rent $20.
+     With 1 House	 $100.
+     With 2 Houses	  $300.
+     With 3 Houses	  $750.
+     With 4 Houses	  $925.
+With HOTEL $1100
+
+Printed Price: $240
+Mortgage Value $120.
+Houses cost $150. each
+Hotels, $150. plus 4 houses
+
+** Michigan Avenue
+Rent $20.
+     With 1 House	 $100.
+     With 2 Houses	  $300.
+     With 3 Houses	  $750.
+     With 4 Houses	  $925.
+With HOTEL $1100
+
+Printed Price: $240
+Mortgage Value $120.
+Houses cost $150. each
+Hotels, $150. plus 4 houses
+
+** Atlantic Avenue
+Rent $22.
+     With 1 House	 $110.
+     With 2 Houses	  $330.
+     With 3 Houses	  $800.
+     With 4 Houses	  $975.
+With HOTEL $1150
+
+Printed Price: $260
+Mortgage Value $130.
+Houses cost $150. each
+Hotels, $150. plus 4 houses
+
+** Ventnor Avenue
+Rent $22.
+     With 1 House	 $110.
+     With 2 Houses	  $330.
+     With 3 Houses	  $800.
+     With 4 Houses	  $975.
+With HOTEL $1150
+
+Printed Price: $260
+Mortgage Value $130.
+Houses cost $150. each
+Hotels, $150. plus 4 houses
+
+** Marvin Gardens
+Rent $24.
+     With 1 House	 $120.
+     With 2 Houses	  $360.
+     With 3 Houses	  $850.
+     With 4 Houses	  $1025.
+With HOTEL $1200
+
+Printed Price: $280
+Mortgage Value $140.
+Houses cost $150. each
+Hotels, $150. plus 4 houses
+
+** California Avenue
+Rent $24.
+     With 1 House	 $120.
+     With 2 Houses	  $360.
+     With 3 Houses	  $850.
+     With 4 Houses	  $1025.
+With HOTEL $1200
+
+Printed Price: $280
+Mortgage Value $140.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** Pacific Avenue
+Rent $26.
+     With 1 House	 $130.
+     With 2 Houses	  $390.
+     With 3 Houses	  $900.
+     With 4 Houses	  $1100.
+With HOTEL $1275
+
+Printed Price: $300
+Mortgage Value $150.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** South Carolina Avenue
+Rent $26.
+     With 1 House	 $130.
+     With 2 Houses	  $390.
+     With 3 Houses	  $900.
+     With 4 Houses	  $1100.
+With HOTEL $1275
+
+Printed Price: $300
+Mortgage Value $150.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** North Carolina Avenue
+Rent $26.
+     With 1 House	 $130.
+     With 2 Houses	  $390.
+     With 3 Houses	  $900.
+     With 4 Houses	  $1100.
+With HOTEL $1275
+
+Printed Price: $300
+Mortgage Value $150.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** Pennsylvania Avenue
+Rent $28.
+     With 1 House	 $150.
+     With 2 Houses	  $450.
+     With 3 Houses	  $1000.
+     With 4 Houses	  $1200.
+With HOTEL $1400
+
+Printed Price: $320
+Mortgage Value $160.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** Florida Avenue
+Rent $35.
+     With 1 House	 $175.
+     With 2 Houses	  $500.
+     With 3 Houses	  $1100.
+     With 4 Houses	  $1300.
+With HOTEL $1500
+
+Printed Price: $350
+Mortgage Value $175.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** Park Place
+Rent $35.
+     With 1 House	 $175.
+     With 2 Houses	  $500.
+     With 3 Houses	  $1100.
+     With 4 Houses	  $1300.
+With HOTEL $1500
+
+Printed Price: $350
+Mortgage Value $175.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** Boardwalk
+Rent $50.
+     With 1 House	 $200.
+     With 2 Houses	  $600.
+     With 3 Houses	  $1400.
+     With 4 Houses	  $1700.
+With HOTEL $2000
+
+Printed Price: $350
+Mortgage Value $175.
+Houses cost $200. each
+Hotels, $200. plus 4 houses
+
+** The Four Railroads
+Reading Railroad
+Pennsylvania Railroad
+B. & O. Railroad
+Short Line
+
+RENT
+1 RR: $25
+2 RR: $50
+3 RR: $100
+4 RR: $200
+
+** Electric Company
+Price: $150
+Rent: (4x if one owned, else 10x)
+
+** Water Works
+Price: $150
+Rent: (4x if one owned, else 10x)
+
+
+-Play money (bank has $15140 source http://boardgames.about.com/
+od/monopolyfaq/f/bank_money.htm). Players are given $1500.
+
+(IMPORTANT)
+Even if you physically run out of bills during a particular game, 
+which is relatively rare, you should come up with a way to keep 
+track (such as having the banker keep a running tab for each player).
+(source http://boardgames.about.com/od/monopolyfaq/f/bank_runs_out.htm)
+
+3. The Rules
+(Based on http://www.hasbro.com/common/instruct/monins.pdf)
